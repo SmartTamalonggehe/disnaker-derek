@@ -9,9 +9,9 @@ class pencaker extends Model
 {
     use HasFactory;
 
-    
-    protected $table = 'pencaker' ;
-    protected $guarded = [] ;
+
+    protected $table = 'pencaker';
+    protected $guarded = [];
 
     public function kelurahan()
     {
@@ -25,6 +25,6 @@ class pencaker extends Model
 
     public function kartukuning()
     {
-        return $this->hasOne(kartukuning::class, 'pencaker_id', 'id');
+        return $this->hasOne(kartuKuning::class, 'pencaker_id', 'id');
     }
 }
