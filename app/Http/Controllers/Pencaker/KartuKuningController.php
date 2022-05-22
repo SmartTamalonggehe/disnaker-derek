@@ -26,11 +26,11 @@ class KartuKuningController extends Controller
         $pencaker_id = Auth::user()->pencaker->id;
         $kartu_kuning = KartuKuning::where('pencaker_id', $pencaker_id)->first();
 
-        $pdf = PDF::loadView('pencaker.kartu_kuning.cetak_kartu', [
+        $pdf = PDF::loadView('pencaker.kartu_pencaker.cetak_kartu', [
             'kartu_kuning' => $kartu_kuning
         ]);
 
-        return $pdf->stream('KARTU KUNING.pdf');
+        return $pdf->download('KARTU KUNING.pdf');
 
         // return view('pencaker.kartu_kuning.cetak_kartu', [
         //     'kartu_kuning' => $kartu_kuning

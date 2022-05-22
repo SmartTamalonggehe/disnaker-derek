@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\kartukuning;
+use App\Models\kartuKuning;
 use App\Models\kelurahan;
 use App\Models\pencaker;
 use App\Models\pendidikan;
@@ -46,24 +46,24 @@ class PencakerController extends Controller
      */
     public function store(Request $request)
     {
-          // 8203-230321-03 0001
-          $tgl_bln_thn = Carbon::now()->isoFormat('DDMMYY');
-          $pencaker = pencaker::find($request->pencaker_id);
-          $kd_distrik = $pencaker->kelurahan->distrik->kd_distrik;
+        // 8203-230321-03 0001
+        $tgl_bln_thn = Carbon::now()->isoFormat('DDMMYY');
+        $pencaker = pencaker::find($request->pencaker_id);
+        $kd_distrik = $pencaker->kelurahan->distrik->kd_distrik;
 
-          $kode = "8203-$tgl_bln_thn-$kd_distrik";
+        $kode = "8203-$tgl_bln_thn-$kd_distrik";
 
-          $kd_kartu = kartukuning::where('kd_kartu', $kode)->max('no') + 1;
+        $kd_kartu = kartuKuning::where('kd_kartu', $kode)->max('no') + 1;
 
-          kartukuning::create([
-              'pencaker_id' => $request->pencaker_id,
-              'kd_kartu' => $kode,
-              'no' => $kd_kartu,
-              'tgl' => Carbon::now(),
-          ]);
+        kartuKuning::create([
+            'pencaker_id' => $request->pencaker_id,
+            'kd_kartu' => $kode,
+            'no' => $kd_kartu,
+            'tgl' => Carbon::now(),
+        ]);
 
-          return redirect()->route('pencakerAdmin.index')
-              ->with('berhasil', 'Data Berhasil Ditambahkan');
+        return redirect()->route('pencakerAdmin.index')
+            ->with('berhasil', 'Data Berhasil Ditambahkan');
     }
 
     /**
