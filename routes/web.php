@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ChecAuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\Pencaker\DashboardController;
 use App\Http\Controllers\Pencaker\KartuKuningController;
 use App\Http\Controllers\Pencaker\LowonganController;
@@ -45,7 +46,7 @@ Route::get('/pencaker.tentang_kami.index', function () {
     return view('pencaker.tentang_kami.index');
 })->name('tentangKami');
 
-Route::group(['middelare' => ['auth','role:pencaker']], function () {
+Route::group(['middelare' => ['auth', 'role:pencaker']], function () {
     Route::resource('pencaker', PencakerController::class);
     Route::resource('pendidikan', PendidikanController::class);
     Route::resource('persyaratan', PersyaratanController::class);
@@ -53,4 +54,4 @@ Route::group(['middelare' => ['auth','role:pencaker']], function () {
     Route::get('CetakKartu', [KartuKuningController::class, 'cetakKartu'])->name('CetakKartu');
 });
 
-
+Route::get('kirim-email', [MailController::class, 'prosesData'])->name('kirimEmail');
