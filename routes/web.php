@@ -52,6 +52,5 @@ Route::group(['middelare' => ['auth', 'role:pencaker']], function () {
     Route::resource('persyaratan', PersyaratanController::class);
     Route::get('kartuKuning', [KartuKuningController::class, 'index'])->name('kartuKuning');
     Route::get('CetakKartu', [KartuKuningController::class, 'cetakKartu'])->name('CetakKartu');
+    Route::get('email-proses', [MailController::class, 'prosesData'])->name('emailProses');
 });
-
-Route::get('kirim-email', [MailController::class, 'prosesData'])->name('kirimEmail');

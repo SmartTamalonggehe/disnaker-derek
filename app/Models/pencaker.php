@@ -27,4 +27,8 @@ class pencaker extends Model
     {
         return $this->hasOne(kartuKuning::class, 'pencaker_id', 'id');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\kartuKuning;
-use App\Models\kelurahan;
-use App\Models\pencaker;
-use App\Models\pendidikan;
-use App\Models\persyaratan;
 use Carbon\Carbon;
+use App\Models\pencaker;
+use App\Models\kelurahan;
+use App\Models\pendidikan;
+use App\Models\kartuKuning;
+use App\Models\persyaratan;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\MailController;
 
 class PencakerController extends Controller
 {
@@ -46,6 +47,8 @@ class PencakerController extends Controller
      */
     public function store(Request $request)
     {
+
+
         // 8203-230321-03 0001
         $tgl_bln_thn = Carbon::now()->isoFormat('DDMMYY');
         $pencaker = pencaker::find($request->pencaker_id);
@@ -54,6 +57,12 @@ class PencakerController extends Controller
         $kode = "8203-$tgl_bln_thn-$kd_distrik";
 
         $kd_kartu = kartuKuning::where('kd_kartu', $kode)->max('no') + 1;
+
+        $kirimEmail = (new MailController)->verifikasi($pencaker);
+
+        if ($kirimEmail == "gagal") {
+            return redirect()->back()->with('error', 'Gagal mengirim email');
+        }
 
         kartuKuning::create([
             'pencaker_id' => $request->pencaker_id,

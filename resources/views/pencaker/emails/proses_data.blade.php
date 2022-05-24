@@ -9,7 +9,7 @@
 
 <body>
     <h2>Proses Data</h2>
-    <p>Terimakasi telah melakukan pendaftaran. Data akan diproses.</p>
+    <p>Terimakasi {{ $user->name }} telah melakukan pendaftaran. Data akan diproses.</p>
 </body>
 
 </html>

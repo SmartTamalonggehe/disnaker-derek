@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pencaker;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MailController;
 use App\Models\pencaker;
 use App\Models\persyaratan;
 use Illuminate\Http\Request;
@@ -46,6 +47,11 @@ class PersyaratanController extends Controller
      */
     public function store(Request $request)
     {
+        $kirimEmail = (new MailController)->prosesData();
+        if ($kirimEmail == "gagal") {
+            return redirect()->back()->with('error', 'Gagal mengirim email');
+        }
+
         $ekstensi_ktp = $request->file('ktp')->extension();
         $nama_ktp = time() . '.' . $ekstensi_ktp;
         Storage::putFileAs('public/persyaratan/ktp', $request->ktp, $nama_ktp);
@@ -70,7 +76,7 @@ class PersyaratanController extends Controller
 
         ]);
         return redirect()->route('persyaratan.index')
-        ->with('berhasil', 'Data Berhasil Disimpan');
+            ->with('berhasil', 'Data Berhasil Disimpan');
     }
 
     /**

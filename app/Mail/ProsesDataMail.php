@@ -3,9 +3,10 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ProsesDataMail extends Mailable
 {
@@ -28,6 +29,7 @@ class ProsesDataMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Disnaker')->view('pencaker.emails.proses_data');
+        $user = Auth::user();
+        return $this->subject('Disnaker')->view('pencaker.emails.proses_data', ['user' => $user]);
     }
 }
