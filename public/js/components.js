@@ -2072,17 +2072,19 @@ var cardLowongan = function cardLowongan(nm_perusahaan, umur_minimal, umur_maksi
 }; // document click event
 
 
-document.addEventListener("click", function (event) {
-  if (event.target.matches(".card-show")) {
-    var id = event.target.dataset.id;
-    card_lowongan.innerHTML = "";
-    (0,_getData__WEBPACK_IMPORTED_MODULE_0__.getDataLowongan)(id).then(function (res) {
-      console.log(res);
-      console.log("card-show");
-      cardLowongan(res.nm_perusahaan, res.umur_minimal, res.umur_maksimal, res.pend_terakhir, res.kehalian, res.keterangan, res.poster);
-    });
-  }
-});
+if (card_lowongan) {
+  document.addEventListener("click", function (event) {
+    if (event.target.matches(".card-show")) {
+      var id = event.target.dataset.id;
+      card_lowongan.innerHTML = "";
+      (0,_getData__WEBPACK_IMPORTED_MODULE_0__.getDataLowongan)(id).then(function (res) {
+        console.log(res);
+        console.log("card-show");
+        cardLowongan(res.nm_perusahaan, res.umur_minimal, res.umur_maksimal, res.pend_terakhir, res.kehalian, res.keterangan, res.poster);
+      });
+    }
+  });
+}
 
 /***/ }),
 
@@ -2090,9 +2092,33 @@ document.addEventListener("click", function (event) {
 /*!***************************************************!*\
   !*** ./resources/js/components/card/pelatihan.js ***!
   \***************************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _getData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../getData */ "./resources/js/getData.js");
+
+var card_pelatihan = document.getElementById("card-pelatihan");
+
+var cardPelatihan = function cardPelatihan(nm_pelatihan, jenis_pelatihan, penyelengara, poster) {
+  var the_card = "<div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <h4 class=\"modal-title\" id=\"myLargeModalLabel\">Detail Pelatihan</h4>\n                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n            </div>\n            <div class=\"modal-body\">\n                <div class=\"table-responsive\">\n                    <table class=\"table\">\n                        <tbody>\n                            <tr>\n                                <td>Nama Pelatihan</td>\n                                <td>:</td>\n                                <td>".concat(nm_pelatihan, "</td>\n                            </tr>\n                            <tr>\n                                <td>Jenis Pelatihan</td>\n                                <td>:</td>\n                                <td>").concat(jenis_pelatihan, "</td>\n                            </tr>\n                            <tr>\n                                <td>Penyelengara</td>\n                                <td>:</td>\n                                <td>").concat(penyelengara, "</td>\n                            </tr>\n                            <tr>\n                                <td>Poster</td>\n                                <td>:</td>\n                                <td>\n                                    <div class=\"col-lg-3 col-md-4 col-xs-6\">\n                                        <a class=\"image-popup-vertical-fit\" href=\"/storage/pelatihan/").concat(poster, "\" title=\"foto Lowongan\">\n                                            <img src=\"/storage/pelatihan/").concat(poster, "\" class=\"img-fluid\" alt=\"\"  />\n                                        </a>\n                                    </div>\n                                </td>\n                            </tr>\n                        </tbody>\n                    </table>\n                </div>\n            </div>\n            <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-danger text-start\" data-bs-dismiss=\"modal\">Close</button>\n            </div>\n        </div>");
+  card_pelatihan.innerHTML = the_card;
+}; // document click event
 
 
+if (card_pelatihan) {
+  document.addEventListener("click", function (event) {
+    if (event.target.matches(".card-show")) {
+      card_pelatihan.innerHTML = "";
+      var id = event.target.dataset.id;
+      (0,_getData__WEBPACK_IMPORTED_MODULE_0__.getDataPelatihan)(id).then(function (res) {
+        console.log(res);
+        console.log("card-show");
+        cardPelatihan(res.nm_pelatihan, res.jenis_pelatihan, res.penyelengara, res.poster);
+      });
+    }
+  });
+}
 
 /***/ }),
 
@@ -2105,7 +2131,8 @@ document.addEventListener("click", function (event) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getDataLowongan": () => (/* binding */ getDataLowongan)
+/* harmony export */   "getDataLowongan": () => (/* binding */ getDataLowongan),
+/* harmony export */   "getDataPelatihan": () => (/* binding */ getDataPelatihan)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
@@ -2113,6 +2140,14 @@ __webpack_require__.r(__webpack_exports__);
 
 var getDataLowongan = function getDataLowongan(id) {
   return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/lowongan/show/".concat(id)).then(function (res) {
+    return res.data;
+  })["catch"](function (err) {
+    console.log(err);
+  });
+};
+
+var getDataPelatihan = function getDataPelatihan(id) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/pelatihan/show/".concat(id)).then(function (res) {
     return res.data;
   })["catch"](function (err) {
     console.log(err);
@@ -2405,7 +2440,6 @@ var __webpack_exports__ = {};
   \************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_card_pelatihan__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/card/pelatihan */ "./resources/js/components/card/pelatihan.js");
-/* harmony import */ var _components_card_pelatihan__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_card_pelatihan__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_card_lowongan__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/card/lowongan */ "./resources/js/components/card/lowongan.js");
 
 

@@ -76,22 +76,24 @@ const cardLowongan = (
 };
 
 // document click event
-document.addEventListener("click", function (event) {
-    if (event.target.matches(".card-show")) {
-        const id = event.target.dataset.id;
-        card_lowongan.innerHTML = "";
-        getDataLowongan(id).then((res) => {
-            console.log(res);
-            console.log("card-show");
-            cardLowongan(
-                res.nm_perusahaan,
-                res.umur_minimal,
-                res.umur_maksimal,
-                res.pend_terakhir,
-                res.kehalian,
-                res.keterangan,
-                res.poster
-            );
-        });
-    }
-});
+if (card_lowongan) {
+    document.addEventListener("click", function (event) {
+        if (event.target.matches(".card-show")) {
+            const id = event.target.dataset.id;
+            card_lowongan.innerHTML = "";
+            getDataLowongan(id).then((res) => {
+                console.log(res);
+                console.log("card-show");
+                cardLowongan(
+                    res.nm_perusahaan,
+                    res.umur_minimal,
+                    res.umur_maksimal,
+                    res.pend_terakhir,
+                    res.kehalian,
+                    res.keterangan,
+                    res.poster
+                );
+            });
+        }
+    });
+}

@@ -11,4 +11,15 @@ const getDataLowongan = (id) => {
         });
 };
 
-export { getDataLowongan };
+const getDataPelatihan = (id) => {
+    return axios
+        .get(`/api/pelatihan/show/${id}`)
+        .then((res) => {
+            return res.data;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+
+export { getDataLowongan, getDataPelatihan };

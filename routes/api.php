@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\LowonganApi;
+use App\Http\Controllers\API\PelatihanApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('lowongan/show/{id}', [LowonganApi::class, 'show'])->name('api.lowongan.show');
+Route::get('pelatihan/show/{id}', [PelatihanApi::class, 'show'])->name('api.pelatihan.show');
